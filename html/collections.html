@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Collections | Museum of Cultural Memory</title>
 
-    <!-- 外部 CSS（按老师要求） -->
     <link rel="stylesheet" href="../css/collection.css" />
 </head>
 
@@ -26,14 +25,12 @@
 
     </div>
 
-    <!-- ✅ 子导航：只控制本页 section 切换 -->
     <nav class="sub-nav">
         <button type="button" onclick="showSection('archeology')">Archaeology</button>
         <button type="button" onclick="showSection('anthropology')">Anthropology</button>
         <button type="button" onclick="showSection('histories')">Histories</button>
     </nav>
 
-    <!-- ✅ AI 声明（老师硬性要求） -->
     <p class="ai-disclaimer">
         The content in this gallery was entirely created by AI under human direction.
         It was then curated, reviewed and edited by a human before being published.
@@ -164,7 +161,6 @@
 
             <hr class="item-divider" />
 
-            <!-- ===== Item 3 (占位，你照着复制改即可) ===== -->
             <article class="collection-item">
                 <h2 class="item-title">Reconstructed Ceramic Storage Vessel</h2>
 
@@ -172,7 +168,7 @@
 
                     <!-- Left: Image -->
                     <figure class="item-figure">
-                        <img src="images/collections/ceramic_storage_vessel.png"
+                        <img src="../images/collections/ceramic_storage_vessel.png"
                             alt="Reconstructed ancient ceramic storage vessel assembled from multiple fragments" />
                     </figure>
 
@@ -222,32 +218,24 @@
         </section>
 
 
-        <!-- =========================
-         SECTION: ANTHROPOLOGY
-    ========================== -->
         <section id="anthropology" class="collection-section" style="display:none;">
             <h1 class="section-title">Anthropology</h1>
 
-            <!-- 这里复制上面的 item 结构做 3 个 anthropology items -->
             <p class="section-note">
                 (Add 3 Anthropology items here using the same layout.)
             </p>
         </section>
 
 
-        <!-- =========================
-         SECTION: HISTORIES (可选/加分项)
-    ========================== -->
+     
         <section id="histories" class="collection-section" style="display:none;">
             <h1 class="section-title">Histories</h1>
             <p class="section-note">
-                (Optional: Add short narrative entries, oral histories, or curated notes—cite sources if any.)
             </p>
         </section>
 
     </main>
 
-    <!-- ✅ JS：也可以放外部 js 文件，但老师允许少量内联 -->
     <script>
         function showSection(section) {
             const sections = document.querySelectorAll('.collection-section');
