@@ -1,0 +1,88 @@
+/* 页面整体 */
+.page-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* section 标题 */
+.section-title {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+/* 每个藏品整体容器 */
+.collection-item {
+  margin-bottom: 60px;
+}
+
+/* 标题 */
+.item-title {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+/* 图片 + 文字横向排列 */
+.item-layout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.item-figure img {
+  width: 300px;
+  height: auto;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  flex: 1;
+}
+
+.meta-col p {
+  margin: 6px 0;
+  line-height: 1.4;
+  font-size: 14px;
+}
+.item-divider {
+  margin-top: 50px;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+.sub-nav {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.pub-nav button {
+  padding: 8px 6px;
+  margin: 12px 18px;
+  border: none;
+  background-color: #5f7a92;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sub-nav button {
+  padding: 8px 16px;
+  margin: 10px 8px;
+  border: none;
+  background-color: #5f7a92;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.sub-nav button:hover {
+  background-color: #476175;
+}
+.ai-disclaimer {
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 30px;
+  color: #555;
+}
