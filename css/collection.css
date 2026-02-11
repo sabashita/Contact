@@ -1,7 +1,10 @@
 .page-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
+  background-image: url(../images/bgimg.png);
+  min-height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 /* section */
@@ -25,6 +28,7 @@
   display: flex;
   gap: 40px;
   align-items: flex-start;
+  background-color: rgba(246, 243, 243, 0.5);
 }
 
 .item-figure img {
