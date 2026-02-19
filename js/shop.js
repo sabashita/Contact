@@ -33,17 +33,18 @@ document.querySelectorAll(".addToCart").forEach(button =>{
         let shopId = shop.dataset.id;
         alert(`Added ${shopId} to the cart`);
 
-        const id = shopId.dataset.id;
-        const name = shopId.dataset.name;
-        const unitPrice = Number(bshopIdtn.dataset.price);
-        const image = shopId.dataset.image;
+        const id = shopId;
+        const name = shop.dataset.name;
+        const unitPrice = Number(shop.dataset.price);
+        const image = shop.dataset.image;
+        
 
-        let cart = readCart();
+        let cart = readCart();//reading from the storage
         const idx = cart.findIndex(it => it.id === id);
         if (idx >= 0) {
             cart[idx].qty += 1;
         } else {
-            cart.push({ id, name, unitPrice, qty: 1, image });
+            cart.push({ id, name, unitPrice, qty:1, image });
         }
         writeCart(cart);
 
@@ -67,8 +68,11 @@ const CART_KEY = 'museumCartV1';
 
 // This function reads the Cart information and write it to JSON  
 function readCart() {
-    try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
-    catch { return []; }
+    try { 
+        return JSON.parse(localStorage.getItem(CART_KEY)) || []; 
+    }catch { 
+        return []; 
+    }
 }
 
 function writeCart(cart) {

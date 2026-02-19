@@ -27,7 +27,9 @@
 
     <!-- STATES & OUTPUT AREAS -->
     <div id="emptyMsg" class="empty" hidden>Your cart is empty.</div>
-    <div id="items" hidden></div>
+    <div id="items" hidden>
+      
+    </div>
     <pre id="summary" hidden></pre>
 
     <!-- BASIC ACTIONS -->
@@ -139,18 +141,70 @@
 
     // TODO: STUDENT IMPLEMENTATION
     // For now, show a placeholder so the page isn't blank.
-    itemsDiv.hidden = true;
-    summaryPre.hidden = false;
-    emptyMsg.hidden = true;
-    summaryPre.textContent =
-`TODO: Implement render() per the assignment spec.
+   
+    
+// TODO: Implement render() per the assignment spec.
 
-Steps:
-1) Load cart from localStorage (readCart)
-2) If empty → show 'Your cart is empty.'
-3) Build text list of items with Remove buttons
-4) Compute totals with exactly one discount (prompt if both apply)
-5) Output a single summary block (commission-style)`;
+// Steps:
+// 1) Load cart from localStorage (readCart)
+// 2) If empty → show 'Your cart is empty.'
+// 3) Build text list of items with Remove buttons
+// 5) Output a single summary block (commission-style);
+
+    let cart = readCart();
+    
+    if(cart.length == 0){
+      itemsDiv.hidden = true;
+      summaryPre.hidden = true;
+      emptyMsg.hidden = false;
+    }else{
+      //let items = document.getElementsByClassName("itemlist");
+      const items = document.getElementById("items");
+      items.textContent = "";
+      let sum = 0;
+      for(i = 0 ; i < cart.length;i++){
+        const div = document.createElement("div");
+        div.className = "itemlist";
+        div.dataset.id = cart[i].id;
+        div.textContent = cart[i].qty + " x " + cart[i].name;
+        sum += Number(cart[i].qty) * Number(cart[i].unitPrice);
+        
+        const btn = document.createElement("button");
+        btn.dataset.id = cart[i].id;
+        btn.textContent = "Remove";
+        div.append(btn);
+        items.appendChild(div);
+      }
+      let memberCheck = 0;
+      if(document.getElementById("memberToggle").checked == true){
+        memberCheck = 0.15;//rate
+      }
+      let volrate = volumeRate(sum);
+      let memberDisccount = sum * memberCheck;
+      let shipping = 25;
+      items.hidden = false;
+      //Subtotal = ItemTotal − AppliedDiscount + SHIPPING_RATE
+      let subtotal = sum - volrate - memberDisccount + shipping;
+
+
+
+
+      // 4) Compute totals with exactly one discount (prompt if both apply)
+      summaryPre.hidden = false;
+      summaryPre.textContent = "Here is your summary! \n";
+      summaryPre.append(`Subtotal of Items: ${money(sum)} \n`);
+      summaryPre.append("Volume Discount: " + volrate + "\n");
+      summaryPre.append(`Member Discount:  ${memberDisccount} \n`);
+      summaryPre.append(`Shipping: ${money(shipping)} \n`);
+      summaryPre.append(`Subtotal(Taxable):  ${money(subtotal)} \n`);
+      summaryPre.append("Tax Rate: " + "10.20% \n");
+      summaryPre.append("Tax Amount: " + "\n");
+      summaryPre.append("Invoice Total: " + "\n");
+      
+    }
+    
+    
+
   }
 
   // Events → re-render
