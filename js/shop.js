@@ -37,14 +37,16 @@ document.querySelectorAll(".addToCart").forEach(button =>{
         const name = shop.dataset.name;
         const unitPrice = Number(shop.dataset.price);
         const image = shop.dataset.image;
-        
+        // named lineTotal because using "lineTotal" in the cart.html to display the price
+        // init to 0 for temp, no use for
+        const lineTotal = 0; 
 
         let cart = readCart();//reading from the storage
         const idx = cart.findIndex(it => it.id === id);
         if (idx >= 0) {
             cart[idx].qty += 1;
         } else {
-            cart.push({ id, name, unitPrice, qty:1, image });
+            cart.push({ id, name, unitPrice, qty:1, image ,lineTotal});
         }
         writeCart(cart);
 

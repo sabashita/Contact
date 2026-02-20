@@ -13,6 +13,7 @@
     pre#summary { background: #f8f8f8; padding: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
     .actions { margin-top: 12px; display: flex; gap: 8px; }
   </style>
+  <link type="css/text" href="../css/cart.css" rel="stylesheet" defer>
 </head>
 <body>
   <header>
@@ -152,40 +153,76 @@
 // 5) Output a single summary block (commission-style);
 
     let cart = readCart();
-    
-    if(cart.length == 0){
+    let contentArr = ["name","qty","unitPrice","lineTotal"];//using for loop create to the td
+    if(cart.length == 0){//no data
       itemsDiv.hidden = true;
       summaryPre.hidden = true;
       emptyMsg.hidden = false;
     }else{
       //let items = document.getElementsByClassName("itemlist");
       const items = document.getElementById("items");
-      items.textContent = "";
-      let sum = 0;
+      items.textContent = "";//reset the items, because the render();
+      let sum = 0;// for calculate the total
+      const table = document.createElement("table");//create a table for items
+      table.style.borderStyle = "solid";//set style for table
+      table.style.width = "720px";
+      //create the title of TH
+      table.innerHTML = "<th>item</th><th>qty</th><th>unit price</th><th>line total</th><th>remove</th>";
+      
+      //loop for data
       for(i = 0 ; i < cart.length;i++){
-        const div = document.createElement("div");
-        div.className = "itemlist";
-        div.dataset.id = cart[i].id;
-        div.textContent = cart[i].qty + " x " + cart[i].name;
-        sum += Number(cart[i].qty) * Number(cart[i].unitPrice);
+        let lineTotal = 0;
+        const tr = document.createElement("tr");
+        tr.className = "itemlist";
+        tr.dataset.id = cart[i].id;
+        //tr.textContent = cart[i].qty + " x " + cart[i].name;
+        
+        //total of each items
+        lineTotal += Number(cart[i].qty) * Number(cart[i].unitPrice);
+        cart[i]["lineTotal"] = lineTotal;
+        let j = 0;
+        //dynamic to create the td for each items, setting the style, append the td into the tr
+        while(j < 4){
+          const td = document.createElement("td");
+
+          td.textContent = contentArr[j] === "qty" || contentArr[j] === "name" ? cart[i][contentArr[j]] : money(cart[i][contentArr[j]]);
+          td.style.borderStyle = "solid";
+          tr.append(td);
+          
+          j++;
+        }
         
         const btn = document.createElement("button");
+        btn.dataset.name = cart[i].name;
         btn.dataset.id = cart[i].id;
         btn.textContent = "Remove";
-        div.append(btn);
-        items.appendChild(div);
+        btn.setAttribute("class","removeItem");
+        
+        tr.append(btn);
+        table.appendChild(tr);
+        items.appendChild(table);
+
+        sum += lineTotal;//add all lineTotal equls sum(subtotal)
       }
+      document.querySelectorAll(".removeItem").forEach(button => {
+        button.addEventListener("click", (e)=> {
+            alert("Remove items: " + e.target.dataset.name);
+            removeItem(e.target.dataset.id);
+        })
+      });
+
       let memberCheck = 0;
       if(document.getElementById("memberToggle").checked == true){
         memberCheck = 0.15;//rate
       }
       let volrate = volumeRate(sum);
       let memberDisccount = sum * memberCheck;
-      let shipping = 25;
+      let shipping = 25;//shipping fee;
       items.hidden = false;
       //Subtotal = ItemTotal − AppliedDiscount + SHIPPING_RATE
       let subtotal = sum - volrate - memberDisccount + shipping;
-
+      let taxAmount = subtotal * 0.102;
+      let invoiceTotal = taxAmount + subtotal;
 
 
 
@@ -198,8 +235,8 @@
       summaryPre.append(`Shipping: ${money(shipping)} \n`);
       summaryPre.append(`Subtotal(Taxable):  ${money(subtotal)} \n`);
       summaryPre.append("Tax Rate: " + "10.20% \n");
-      summaryPre.append("Tax Amount: " + "\n");
-      summaryPre.append("Invoice Total: " + "\n");
+      summaryPre.append(`Tax Amount: ${money(taxAmount)}\n`);
+      summaryPre.append(`Invoice Total:  ${money(invoiceTotal)}\n`);
       
     }
     
